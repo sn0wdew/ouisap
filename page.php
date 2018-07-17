@@ -9,7 +9,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package ouisap
+ * @package ouisap 
  */
 
 get_header();
