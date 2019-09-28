@@ -16,43 +16,39 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<?php 
+		//Get the root file directory for the theme
+		$theme_current_directory = get_template_directory_uri();
+	?>
+	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo $theme_current_directory; ?>/favicons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo $theme_current_directory; ?>/favicons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo $theme_current_directory; ?>/favicons/favicon-16x16.png">
+	<link rel="manifest" href="<?php echo $theme_current_directory; ?>/favicons/site.webmanifest">
+	<link rel="mask-icon" href="<?php echo $theme_current_directory; ?>/favicons/safari-pinned-tab.svg" color="#004022">
+	<link rel="shortcut icon" href="<?php echo $theme_current_directory; ?>/favicons/favicon.ico">
+	<meta name="msapplication-TileColor" content="#00aba9">
+	<meta name="theme-color" content="#ffffff">
 
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
-<div id="page" class="site">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'ouisap' ); ?></a>
+<body>
+<div>
+	<header>
+	<nav>
+		<div class="nav-wrapper">
+			<?php the_custom_logo(); ?>
 
-	<header id="masthead" class="site-header">
-		<div class="site-branding">
+			<div class="nav-logo-text">Information Systems and Analytics Professionals</div>
 			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
+				wp_nav_menu( array(
+					'theme_location' => 'menu-1',
+					'menu_id'        => 'menu',
+				) );
 				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$ouisap_description = get_bloginfo( 'description', 'display' );
-			if ( $ouisap_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $ouisap_description; /* WPCS: xss ok. */ ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
+		</div>
 
-		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'ouisap' ); ?></button>
-			<?php
-			wp_nav_menu( array(
-				'theme_location' => 'menu-1',
-				'menu_id'        => 'primary-menu',
-			) );
-			?>
-		</nav><!-- #site-navigation -->
+	</nav>
 	</header><!-- #masthead -->
 
 	<div id="content" class="site-content">

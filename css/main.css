@@ -525,7 +525,7 @@ input[type="button"] {
     list-style: none;
     overflow: hidden;
     padding: 0;
-    margin: 0 0 0 20px; }
+    margin: 0 0 0 0px; }
   .slicknav_nav .slicknav_row {
     padding: 5px 10px;
     margin: 2px 5px; }
@@ -569,7 +569,7 @@ nav {
   font-family: 'Oswald', sans-serif;
   font-weight: bold;
   color: black;
-  position: fixed;
+  position: relative;
   width: 100%;
   -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 30px 2px;
   -moz-box-shadow: rgba(0, 0, 0, 0.8) 0px 0px 30px 2px;

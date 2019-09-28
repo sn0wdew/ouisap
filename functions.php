@@ -126,21 +126,55 @@ function ouisap_scripts() {
 
 
 
-	wp_enqueue_script( 'ouisap-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+	//wp_enqueue_script( 'ouisap-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
-	wp_enqueue_style( 'ouisap-main', get_template_directory_uri() . '/css/bootstrap.min.css' );
-	wp_enqueue_style( 'ouisap-main', get_template_directory_uri() . '/css/animate.css' );
-	wp_enqueue_style( 'ouisap-main', get_template_directory_uri() . '/css/slick-theme.css' );
-	wp_enqueue_style( 'ouisap-main', get_template_directory_uri() . '/css/slick.css' );
-	wp_enqueue_style( 'ouisap-main', get_template_directory_uri() . '/css/typer.css' );
+	// All CSS
+	wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/css/bootstrap.min.css' );
+	wp_enqueue_style( 'animate', get_template_directory_uri() . '/css/animate.css' );
+	wp_enqueue_style( 'slick-theme', get_template_directory_uri() . '/css/slick-theme.css' );
+	wp_enqueue_style( 'slick', get_template_directory_uri() . '/css/slick.css' );
+	wp_enqueue_style( 'typer', get_template_directory_uri() . '/css/typer.css' );
 	wp_enqueue_style( 'ouisap-main', get_template_directory_uri() . '/css/main.css' );
 
+	// All JS
+	wp_enqueue_script( 'slicknavjs', get_template_directory_uri() . '/js/jquery.slicknav.js', array('jquery'), NULL, true);
+	wp_enqueue_script( 'slickjs', get_template_directory_uri() . '/js/slick.min.js', array(), NULL, true);
+	//wp_enqueue_script( 'typerjs', get_template_directory_uri() . '/js/typer.min.js', array('jquery'), NULL, true);
+	wp_enqueue_script( 'functions', get_template_directory_uri() . '/js/functions.js', array('jquery'), NULL, true);
 }
 add_action( 'wp_enqueue_scripts', 'ouisap_scripts' );
+
+/**
+ * Defer js.
+ */
+function mind_defer_scripts( $tag, $handle, $src ) {
+	
+	// add the js file's unique name to this array
+	$defer = array( 
+	  'slicknavjs',
+	  'slickjs',
+	  'typerjs',
+	  'functions',
+	  'jquery-migrate',
+	  'ajax-services',
+	  'customize-preview',
+	  'wp-mediaelement',
+	  'mediaelement-vimeo',
+	  'wp-playlist',
+	  'customize-selective-refresh',
+	  'customize-preview-nav-menus'
+	);
+	if ( in_array( $handle, $defer ) ) {
+	   return '<script src="' . $src . '" defer="defer" type="text/javascript"></script>' . "\n";
+	}
+	  
+	return $tag;
+  } 
+add_filter( 'script_loader_tag', 'mind_defer_scripts', 10, 3 );
 
 /**
  * Implement the Custom Header feature.
@@ -169,3 +203,10 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+// Allow upload of SVG files
+// This function allows the upload of SVG Files
+function cc_mime_types($mimes) {
+	$mimes['svg'] = 'image/svg+xml';
+	return $mimes;
+  }
+  add_filter('upload_mimes', 'cc_mime_types');
