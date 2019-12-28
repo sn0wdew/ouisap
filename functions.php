@@ -141,9 +141,9 @@ function ouisap_scripts() {
 	wp_enqueue_style( 'ouisap-main', get_template_directory_uri() . '/css/main.css' );
 
 	// All JS
+	wp_enqueue_script( 'typerjs', get_template_directory_uri() . '/js/typer.min.js', array('jquery'), NULL, true);
 	wp_enqueue_script( 'slicknavjs', get_template_directory_uri() . '/js/jquery.slicknav.js', array('jquery'), NULL, true);
 	wp_enqueue_script( 'slickjs', get_template_directory_uri() . '/js/slick.min.js', array(), NULL, true);
-	//wp_enqueue_script( 'typerjs', get_template_directory_uri() . '/js/typer.min.js', array('jquery'), NULL, true);
 	wp_enqueue_script( 'functions', get_template_directory_uri() . '/js/functions.js', array('jquery'), NULL, true);
 }
 add_action( 'wp_enqueue_scripts', 'ouisap_scripts' );
@@ -210,3 +210,5 @@ function cc_mime_types($mimes) {
 	return $mimes;
   }
   add_filter('upload_mimes', 'cc_mime_types');
+
+  
