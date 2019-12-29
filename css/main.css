@@ -658,9 +658,9 @@ nav {
         nav #menu li:hover a, nav #menu li:focus a {
           color: white;
           text-decoration: none; }
-    nav #menu .active {
+    nav #menu .current_page_item {
       background-color: #004022; }
-      nav #menu .active a {
+      nav #menu .current_page_item a {
         color: white; }
 
 .cover-photo {
