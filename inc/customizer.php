@@ -17,7 +17,7 @@
 add_action( 'customize_register', 'cd_customizer_settings' );
 function cd_customizer_settings( $wp_customize ) {
 	$wp_customize->add_section( 'cd_colors' , array(
-		'title'      => 'My Title',
+		'title'      => 'ISAP Settings',
 		'priority'   => 30,
 	) );
 	$wp_customize->add_setting( 'background_color' , array(
@@ -30,6 +30,33 @@ function cd_customizer_settings( $wp_customize ) {
 		'section'    => 'cd_colors',
 		'settings'   => 'background_color',
 	) ) );
+
+	$wp_customize->add_setting( 'sample_default_media',
+	array(
+		'default' => '',
+		'transport' => 'refresh',
+		'sanitize_callback' => 'absint'
+	)
+	);
+	
+	$wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'sample_default_media',
+	array(
+		'label' => __( 'Default Media Control' ),
+		'description' => esc_html__( 'This is the description for the Media Control' ),
+		'section' => 'cd_colors',
+		'mime_type' => 'image',  // Required. Can be image, audio, video, application, text
+		'button_labels' => array( // Optional
+			'select' => __( 'Select File' ),
+			'change' => __( 'Change File' ),
+			'default' => __( 'Default' ),
+			'remove' => __( 'Remove' ),
+			'placeholder' => __( 'No file selected' ),
+			'frame_title' => __( 'Select File' ),
+			'frame_button' => __( 'Choose File' ),
+		)
+	)
+	) );
+
 }
 
 function ouisap_customize_register( $wp_customize ) {
