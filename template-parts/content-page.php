@@ -11,12 +11,13 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+		<?php the_title( '<h2 style="margin: 40px 0 20px 0;">', '</h2>' ); ?>
 	</header><!-- .entry-header -->
 
 	<?php ouisap_post_thumbnail(); ?>
 
-	<div class="entry-content">
+	<div class="row">
+		<div class="col">
 		<?php
 		the_content();
 
@@ -25,10 +26,11 @@
 			'after'  => '</div>',
 		) );
 		?>
+		</div>
 	</div><!-- .entry-content -->
 
 	<?php if ( get_edit_post_link() ) : ?>
-		<footer class="entry-footer">
+		<div class="entry-footer">
 			<?php
 			edit_post_link(
 				sprintf(
@@ -47,6 +49,6 @@
 				'</span>'
 			);
 			?>
-		</footer><!-- .entry-footer -->
+		</div><!-- .entry-footer -->
 	<?php endif; ?>
 </article><!-- #post-<?php the_ID(); ?> -->

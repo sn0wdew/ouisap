@@ -39,7 +39,7 @@
 		<div class="nav-wrapper">
 			<?php the_custom_logo(); ?>
 
-			<div class="nav-logo-text">Information Systems and Analytics Professionals</div>
+			<div class="nav-logo-text"><?php echo get_bloginfo("name");?></div>
 			<?php
 				wp_nav_menu( array(
 					'theme_location' => 'menu-1',

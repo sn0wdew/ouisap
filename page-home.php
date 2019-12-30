@@ -17,7 +17,7 @@ get_header();
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main">
-		<div class="cover-photo">
+		<div class="cover-photo" style="background-image: url(<?php echo wp_get_attachment_url(get_theme_mod('cover_photo')); ?>);">
             <div id="slogan-wrapper">
                 <h1 id="slogan"></h1>
             </div>
@@ -27,46 +27,130 @@ get_header();
             <div class="row introduction">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <h3>Introduction</h3>
-                    <p>ISAP is a student-run organization geared toward MIS and data analytics majors within Ohio University's College of Business. We host weekly meetings that members network with industry professionals, learn about technological trends, and gain insights about the skills sought by employers. ISAP helps to develop passionate young adults who are ready to learn and share their knowledge to help businesses leverage technology in a dynamic environment.</p>
+                    <h3><?php echo get_theme_mod('home_headline');?></h3>
+                    <p><?php echo get_theme_mod('home_subtext');?></p>
                 </div>
                 <div class="col-md-2"></div>
             </div>
 
             <div class="row">
                 <section class="regular slider">
-                    <div><a target="_blank" href="https://google.com"><img src="templates/ouisap/assets/img/home/official-sponsors/deloitte.png"></a></div>
-                    <div><img src="templates/ouisap/assets/img/home/official-sponsors/cardinal.png"></div>
-                    <div><img src="templates/ouisap/assets/img/home/official-sponsors/ey.png"></div>
-                    <div><img src="templates/ouisap/assets/img/home/official-sponsors/fifth-third-bank.png"></div>
-                    <div><img src="templates/ouisap/assets/img/home/official-sponsors/hyland.png"></div>
-                    <div><img src="templates/ouisap/assets/img/home/official-sponsors/infoverity.png"></div>
-                    <div><img src="templates/ouisap/assets/img/home/official-sponsors/kpmg.png"></div>
-                    <div><img src="templates/ouisap/assets/img/home/official-sponsors/marathon.png"></div>
-                    <div><img src="templates/ouisap/assets/img/home/official-sponsors/parker.png"></div>
-                    <div><img src="templates/ouisap/assets/img/home/official-sponsors/pwc.png"></div>
-                    <div><img src="templates/ouisap/assets/img/home/official-sponsors/wendys.png"></div>
+                    <?php
+                        $args = array(
+                            'post_type' => 'isap_companies',
+                            'post_per_page' => '-1',
+                            'orderby' => 'menu_order',
+                            'order'   => 'ASC'
+                        );
+
+                        $query = new WP_Query( $args ); // custom wp_query
+
+                        if ( $query->have_posts() ) :
+
+                            while( $query->have_posts() ):
+                                $query->the_post();
+                                get_template_part( 'template-parts/content', get_post_type() );
+
+                            endwhile; // End of the loop.
+                        endif;
+                        wp_reset_postdata();
+                    ?>
                 </section>
             </div>
         </main>
 
-		<?php
-		// while ( have_posts() ) :
-		// 	the_post();
+        <div class="after-article">
+            <div class="upcoming-events-wrapper" style="background-image: url(<?php echo wp_get_attachment_url(get_theme_mod('events_photo')); ?>);">
+                <div class="upcoming-events">
+                    <h3 class="upcoming-events-title">Upcoming Events</h3>
+                    <table>
+                      <tbody>
+                      <?php
+                        $args = array(
+                            'post_type' => 'isap_events',
+                            'post_per_page' => '-1',
+                            'orderby' => 'menu_order',
+                            'order'   => 'ASC'
+                        );
 
-		// 	get_template_part( 'template-parts/content', 'page' );
+                        $query = new WP_Query( $args ); // custom wp_query
 
-		// 	// If comments are open or we have at least one comment, load up the comment template.
-		// 	if ( comments_open() || get_comments_number() ) :
-		// 		comments_template();
-		// 	endif;
+                        if ( $query->have_posts() ) :
 
-		// endwhile; // End of the loop.
-		?>
+                            while( $query->have_posts() ):
+                                $query->the_post();
+                                get_template_part( 'template-parts/content', get_post_type() );
+
+                            endwhile; // End of the loop.
+                        endif;
+                        wp_reset_postdata();
+                    ?>
+                    </tbody></table>
+                </div>
+            </div>
+            
+            <div class="contact-wrapper">
+                <div class="contact-section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-5 home-info ">
+                                <h3>Information</h3>
+                                <table class="contact-us-table">
+                                    <tbody><tr>
+                                        <td>
+                                            <img src="<?php echo get_template_directory_uri(); ?>/assets/mail-icon.svg">
+                                        </td>
+                                        <td><?php echo get_theme_mod('contact_email'); ?></td>
+                                    </tr>
+                                    <tr class="tbl-spacer"></tr>
+                                    <tr>
+                                        <td>
+                                            <img src="<?php echo get_template_directory_uri(); ?>/assets/group.svg">
+                                        </td>
+                                        <td>Meeting Location<br><?php echo get_theme_mod('meeting_loc'); ?></td>
+                                    </tr>
+                                    <tr class="tbl-spacer"></tr>
+                                    <tr>
+                                        <td>
+                                            <img src="<?php echo get_template_directory_uri(); ?>/assets/ou-icon.png">
+                                        </td>
+                                        <td>Ohio University<br>College of Business</td>
+                                    </tr>
+                                </tbody></table>
+                            </div>
+
+                            <div class="col-md-7 home-contact ">
+                                <h3>Contact Us</h3>
+                                <form action="https://formspree.io/contact@ouisap.com" method="POST">
+                                    <input type="text" name="name" placeholder="Name">
+                                    <input type="email" name="email" placeholder="Email">
+                                    <select name="concerning">
+                                    <option value="Anyone">Send To</option>
+                                    <option value="President">President</option>
+                                    <option value="Vice-President">Vice-President</option>
+                                    <option value="Treasurer">Treasurer</option>
+                                    <option value="PR-1">Professional Relations</option>
+                                    <option value="DOSE-1">Director of Special Events</option>
+                                    <option value="DOSE-2">Director of Membership</option>
+                                    <option value="Web-Admin">Web Admin</option>
+                                    <option value="Diversity and Inclusion">Director of Diversity and Inclusion</option>
+                                    <option value="Recruitment">Director of Recruitment</option>
+                                    <option value="Marketing">Marketing</option>
+                                </select>
+                                    <textarea name="message" placeholder="Message"></textarea>
+                                    <input type="submit" value="Send">
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
 
 <?php
-get_sidebar();
 get_footer();

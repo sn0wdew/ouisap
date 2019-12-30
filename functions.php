@@ -196,6 +196,12 @@ require get_template_directory() . '/inc/template-functions.php';
  */
 require get_template_directory() . '/inc/customizer.php';
 
+
+/**
+ * Custom post types.
+ */
+require get_template_directory() . '/inc/custom-post-types.php';
+
 /**
  * Load Jetpack compatibility file.
  */

@@ -1,0 +1,1 @@
+<div><a target="_blank" href="<?php echo get_the_content();?>"><img alt="<?php echo get_the_title(); ?>" src="<?php echo the_post_thumbnail_url(); ?>"></a></div>
